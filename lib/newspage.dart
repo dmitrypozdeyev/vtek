@@ -48,7 +48,10 @@ class _NewsPageState extends State<NewsPage> {
     Widget images = ListView.builder(itemBuilder: (contex, index) {
       return Padding(
         padding: const EdgeInsets.all(16),
-        child: Image.network(news['img_urls'][index]),
+        child: GestureDetector(
+          onTap: () => showPhoto(index),
+          child: Image.network(news['img_urls'][index]),
+        ),
       );
     },
       itemCount: news['img_urls'].length,
@@ -67,5 +70,31 @@ class _NewsPageState extends State<NewsPage> {
         ]
       )
     );
+  }
+  void showPhoto(index) {
+    List<String> images = List<String>.from(news['img_urls']);
+    showDialog(context: context,
+        builder: (context){
+      return Dialog(
+        insetPadding: EdgeInsets.zero,
+        child: PageView.builder(
+            itemCount: images.length,
+            itemBuilder: (context, index){
+              return InteractiveViewer(
+                  child: Image.network(
+                    images[index],
+                    fit: BoxFit.contain,
+                    loadingBuilder: (context, child, loadingProgress){
+                      if (loadingProgress == null){
+                        return child;
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  ));
+            }),
+      );
+        });
   }
 }
