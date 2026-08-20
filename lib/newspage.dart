@@ -71,18 +71,21 @@ class _NewsPageState extends State<NewsPage> {
       )
     );
   }
-  void showPhoto(index) {
+  Future<void> showPhoto(index) async {
     List<String> images = List<String>.from(news['img_urls']);
     showDialog(context: context,
         builder: (context){
       return Dialog(
         insetPadding: EdgeInsets.zero,
         child: PageView.builder(
+            controller: PageController(
+              initialPage: index,
+            ),
             itemCount: images.length,
-            itemBuilder: (context, index){
+            itemBuilder: (context, i){
               return InteractiveViewer(
                   child: Image.network(
-                    images[index],
+                    images[i],
                     fit: BoxFit.contain,
                     loadingBuilder: (context, child, loadingProgress){
                       if (loadingProgress == null){
@@ -95,6 +98,6 @@ class _NewsPageState extends State<NewsPage> {
                   ));
             }),
       );
-        });
+    });
   }
 }
