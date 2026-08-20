@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vtek/parser.dart';
 
+import 'menu.dart';
+
 class NewsList extends StatefulWidget {
   const NewsList({super.key});
   @override
@@ -24,7 +26,9 @@ class _NewsListState extends State<NewsList> {
         itemCount: news.length,
         itemBuilder: (context, index){
           return ListTile(
-              title: Text(news[index]['title'] ?? ''),
+              title: Text(
+                news[index]['title'] ?? '',
+              ),
               leading: SizedBox(
                 width: 80,
                 height: 60,
@@ -37,6 +41,7 @@ class _NewsListState extends State<NewsList> {
         }
     );
     return Scaffold(
+      drawer: MainDrawer(),
       appBar: AppBar(
         title: const Text('Новости'),
       ),

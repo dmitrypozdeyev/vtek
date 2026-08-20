@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:vtek/parser.dart';
 
+import 'menu.dart';
+
 class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
 
@@ -57,6 +59,7 @@ class _NewsPageState extends State<NewsPage> {
       itemCount: news['img_urls'].length,
       scrollDirection: Axis.horizontal,);
     return Scaffold(
+      drawer: MainDrawer(),
       appBar: AppBar(
         title: Text(news['title'] ?? ''),
       ),
