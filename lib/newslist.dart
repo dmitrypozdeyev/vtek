@@ -25,7 +25,9 @@ class _NewsListState extends State<NewsList> {
     Widget newsWidget = ListView.builder(
         itemCount: news.length,
         itemBuilder: (context, index){
-          return ListTile(
+          return Container(
+            margin: const EdgeInsets.all(3),
+            child: ListTile(
               title: Text(
                 news[index]['title'] ?? '',
               ),
@@ -36,7 +38,15 @@ class _NewsListState extends State<NewsList> {
               ),
               onTap: () {
                 Navigator.pushNamed(context, '/news', arguments: news[index]['url']);
-          },
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide(
+                  color: Colors.black54,
+                  width: 2,
+                ),
+              ),
+            ),
           );
         }
     );
