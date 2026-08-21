@@ -9,12 +9,12 @@ Future<List<Map<String, String>>> fetchNewsList(String url) async {
   List<Map<String, String>> news = [];
   for(Element el in elements){
     String title = el.querySelector('h3')?.text ?? '';
-    String news_url = url + el.querySelector('h3')!.querySelector('a')!.attributes['href']! ?? '';
-    String img_url = url + el.querySelector('div.events-card__image')!.querySelector('img')!.attributes['src']! ?? '';
+    String newsUrl = url + el.querySelector('h3')!.querySelector('a')!.attributes['href']!;
+    String imgUrl = url + el.querySelector('div.events-card__image')!.querySelector('img')!.attributes['src']!;
     news.add({
       'title': title,
-      'url': news_url,
-      'img_url': img_url
+      'url': newsUrl,
+      'img_url': imgUrl
     });
   }
   return news;
@@ -26,14 +26,32 @@ Future<Map<String, dynamic>> fetchOneNews(String newsUrl, String siteUrl) async{
   Map<String, dynamic> news = {};
   news['img_urls'] = [];
   news['title'] = document.querySelector('h1')?.text ?? '';
-  final imgDivs = document.querySelectorAll('div.newsdetail-slide') ?? [];
+  final imgDivs = document.querySelectorAll('div.newsdetail-slide');
   for (Element imgDiv in imgDivs) {
-   String img_url = siteUrl + imgDiv.querySelector('img')!.attributes['src']! ?? '';
+   String img_url = siteUrl + imgDiv.querySelector('img')!.attributes['src']!;
    news['img_urls'].add(img_url);
   }
   var newsElement = document.querySelector('section.newsdetail-section');
   var imagesToRemove = newsElement?.querySelector('div.newsdetail-block');
   imagesToRemove?.remove();
+  newsElement?.querySelector('img')?.attributes['src']=siteUrl + newsElement.querySelector('img')!.attributes['src']!;
   news['content'] = newsElement?.innerHtml ?? '';
   return news;
+}
+
+Future<String> fetchHowToEnroll(String url, String siteUrl) async{
+  final response = await http.get(Uri.parse(url));
+  final document = parser.parse(response.body);
+  final material = document.querySelector('h1')?.parent;
+  final title = material?.querySelector('h1');
+  title?.remove();
+  List<Element> imgs = material?.querySelectorAll('img') ?? [];
+  for (var img in imgs){
+    img.attributes['src'] = siteUrl + img.attributes['src']!;
+  }
+  final content = material?.innerHtml;
+  print(content);
+  return content ?? '';
+
+
 }

@@ -47,10 +47,6 @@ class _NewsListState extends State<NewsList> {
       ),
         body: newsWidget,
     );
-
-
-
-
   }
 
 }

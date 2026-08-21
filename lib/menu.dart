@@ -28,6 +28,14 @@ class MainDrawer extends StatelessWidget {
               );
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.near_me),
+            title: const Text('Как поступить'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/enroll');
+            },
+          ),
         ],
       ),
     );

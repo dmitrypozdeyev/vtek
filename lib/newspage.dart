@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:vtek/parser.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'menu.dart';
 
@@ -13,6 +14,7 @@ class NewsPage extends StatefulWidget {
 
 class _NewsPageState extends State<NewsPage> {
   Map<String, dynamic> news = {};
+  Widget result = Scaffold();
 
   @override
   void didChangeDependencies() {
@@ -45,6 +47,14 @@ class _NewsPageState extends State<NewsPage> {
         padding: const EdgeInsets.all(16),
         child: Html(
           data: news['content'] ?? '',
+          onLinkTap: (url, attributes, element) async{
+            if (url?.startsWith('http') ?? false) {
+              await launchUrl(
+                Uri.parse(url!),
+                mode: LaunchMode.externalApplication,
+              );
+            }
+          },
         )
     );
     Widget images = ListView.builder(itemBuilder: (contex, index) {
@@ -58,22 +68,35 @@ class _NewsPageState extends State<NewsPage> {
     },
       itemCount: news['img_urls'].length,
       scrollDirection: Axis.horizontal,);
-    return Scaffold(
-      drawer: MainDrawer(),
-      appBar: AppBar(
-        title: Text(news['title'] ?? ''),
-      ),
-      body: Column(
-        children: [
-          Expanded(child: newsText),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
-            child: images,
+    if (news['img_urls'].length == 0) {
+      result = Scaffold(
+          drawer: MainDrawer(),
+          appBar: AppBar(
+            title: Text(news['title'] ?? ''),
           ),
-        ]
-      )
-    );
+          body: newsText,
+      );
+    }
+    else {
+      result = Scaffold(
+          drawer: MainDrawer(),
+          appBar: AppBar(
+            title: Text(news['title'] ?? ''),
+          ),
+          body: Column(
+              children: [
+                Expanded(child: newsText),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  child: images,
+                ),
+              ]
+          )
+      );
+    }
+    return result;
   }
+
   Future<void> showPhoto(index) async {
     List<String> images = List<String>.from(news['img_urls']);
     showDialog(context: context,
