@@ -49,6 +49,10 @@ Future<String> fetchHowToEnroll(String url, String siteUrl) async{
   for (var img in imgs){
     img.attributes['src'] = siteUrl + img.attributes['src']!;
   }
+  List<Element> links = material?.querySelectorAll('a') ?? [];
+  for (var link in links){
+    if (!(link.attributes['href']!.startsWith('http'))) link.attributes['href'] = siteUrl + link.attributes['href']!;
+  }
   final content = material?.innerHtml;
   print(content);
   return content ?? '';
