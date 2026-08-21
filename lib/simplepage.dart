@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vtek/parser.dart';
 
 import 'menu.dart';
 
-class Enroll extends StatefulWidget{
-
-  const Enroll({super.key});
+class SimplePage extends StatefulWidget{
+  final Future<String> parserdata;
+  final String pageTitle;
+  const SimplePage({
+    super.key,
+    required this.parserdata,
+    required this.pageTitle,
+  });
 
   @override
-  State<Enroll> createState() => _EnrollState();
+  State<SimplePage> createState() => _SimplePageState();
 
 }
 
-class _EnrollState extends State<Enroll> {
+class _SimplePageState extends State<SimplePage> {
   String content = '';
+  Widget contentWidget = Center(
+    child: CircularProgressIndicator(),
+  );
+
 
   @override
   void initState() {
     super.initState();
-    fetchHowToEnroll('https://t130631.spo.obrazovanie33.ru/postuplenie/', 'https://t130631.spo.obrazovanie33.ru').then(
+    widget.parserdata.then(
       (value) => setState(() {
         content = value;
       })
@@ -29,12 +37,8 @@ class _EnrollState extends State<Enroll> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Как Поступить'),
-      ),
-      drawer: const MainDrawer(),
-      body: SingleChildScrollView(
+    if (content.isNotEmpty) {
+      contentWidget = SingleChildScrollView(
         padding: const EdgeInsetsGeometry.all(16),
         child: Html(
           data: content,
@@ -47,7 +51,15 @@ class _EnrollState extends State<Enroll> {
             }
           },
         ),
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.pageTitle),
       ),
+      drawer: const MainDrawer(),
+      body: contentWidget,
     );
   }
 }

@@ -22,6 +22,11 @@ class _NewsListState extends State<NewsList> {
   }
   @override
   Widget build(BuildContext context) {
+    if (news.isEmpty) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     Widget newsWidget = ListView.builder(
         itemCount: news.length,
         itemBuilder: (context, index){

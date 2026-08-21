@@ -10,7 +10,7 @@ Future<List<Map<String, String>>> fetchNewsList(String url) async {
   for(Element el in elements){
     String title = el.querySelector('h3')?.text ?? '';
     String newsUrl = url + el.querySelector('h3')!.querySelector('a')!.attributes['href']!;
-    String imgUrl = url + el.querySelector('div.events-card__image')!.querySelector('img')!.attributes['src']!;
+    String imgUrl = url + el.querySelector('div.events-card__image img')!.attributes['src']!;
     news.add({
       'title': title,
       'url': newsUrl,
@@ -45,7 +45,7 @@ Future<String> fetchHowToEnroll(String url, String siteUrl) async{
   final material = document.querySelector('h1')?.parent;
   final title = material?.querySelector('h1');
   title?.remove();
-  List<Element> imgs = material?.querySelectorAll('img') ?? [];
+  final List<Element> imgs = material?.querySelectorAll('img') ?? [];
   for (var img in imgs){
     img.attributes['src'] = siteUrl + img.attributes['src']!;
   }
@@ -56,6 +56,17 @@ Future<String> fetchHowToEnroll(String url, String siteUrl) async{
   final content = material?.innerHtml;
   print(content);
   return content ?? '';
+}
 
-
+Future<String> fetchContacts(String url, String siteUrl) async{
+  final response = await http.get(Uri.parse(url));
+  final document = parser.parse(response.body);
+  final contacts = document.querySelector('div.footer-nav__contacts');
+  final imgs = contacts?.querySelectorAll('img');
+  if (imgs != null) {
+    for (Element img in imgs) {
+      img.attributes['src'] = siteUrl + img.attributes['src']!;
+    }
+  }
+  return contacts!.innerHtml;
 }

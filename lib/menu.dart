@@ -5,15 +5,26 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const String logoUrl = 'https://t130631.spo.obrazovanie33.ru/upload/uf/437/c0p7f82yzpcy9706p9zhd33r1262n479/Logotip-VTEK.png';
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             padding: EdgeInsets.zero,
-            child: Center(
-              child: Text('Главное меню'),
-            ),
+            child: Column(
+              spacing: 8,
+              children: [
+                SizedBox(height: 120,
+                child: Image.network(logoUrl)),
+                const Text('Главное меню',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                ),
+              ]
+            )
           ),
 
           ListTile(
@@ -34,6 +45,14 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/enroll');
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.contacts),
+            title: const Text('Контакты'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/contacts');
             },
           ),
         ],
