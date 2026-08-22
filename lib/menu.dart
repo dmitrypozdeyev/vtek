@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -16,7 +17,7 @@ class MainDrawer extends StatelessWidget {
               spacing: 8,
               children: [
                 SizedBox(height: 120,
-                child: Image.network(logoUrl)),
+                child: CachedNetworkImage(imageUrl: logoUrl)),
                 const Text('Главное меню',
                 style: TextStyle(
                   fontSize: 20,

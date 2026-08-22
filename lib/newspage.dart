@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:vtek/parser.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -62,7 +64,7 @@ class _NewsPageState extends State<NewsPage> {
         padding: const EdgeInsets.all(16),
         child: GestureDetector(
           onTap: () => showPhoto(index),
-          child: Image.network(news['img_urls'][index]),
+          child: CachedNetworkImage(imageUrl: news['img_urls'][index],),
         ),
       );
     },
@@ -102,27 +104,20 @@ class _NewsPageState extends State<NewsPage> {
     showDialog(context: context,
         builder: (context){
       return Dialog(
+        backgroundColor: Colors.black,
         insetPadding: EdgeInsets.zero,
-        child: PageView.builder(
-            controller: PageController(
-              initialPage: index,
-            ),
-            itemCount: images.length,
-            itemBuilder: (context, i){
-              return InteractiveViewer(
-                  child: Image.network(
-                    images[i],
-                    fit: BoxFit.contain,
-                    loadingBuilder: (context, child, loadingProgress){
-                      if (loadingProgress == null){
-                        return child;
-                      }
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  ));
-            }),
+        child: PhotoViewGallery.builder(
+          itemCount: images.length,
+          builder: (context, i) {
+            return PhotoViewGalleryPageOptions(
+              imageProvider: CachedNetworkImageProvider(images[i]),
+              errorBuilder: (context, error, stackTrace) => const Center(
+                child: Icon(Icons.broken_image),
+              )
+            );
+          },
+          backgroundDecoration: const BoxDecoration(color: Colors.black),
+        )
       );
     });
   }
