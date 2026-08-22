@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vtek/parser.dart';
 
@@ -39,7 +40,7 @@ class _NewsListState extends State<NewsList> {
               leading: SizedBox(
                 width: 80,
                 height: 60,
-                child: Image.network(news[index]['img_url'] ?? ''),
+                child: CachedNetworkImage(imageUrl: news[index]['img_url'] ?? ''),
               ),
               onTap: () {
                 Navigator.pushNamed(context, '/news', arguments: news[index]['url']);
