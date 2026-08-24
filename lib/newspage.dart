@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:vtek/parser.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'UI.dart';
 import 'menu.dart';
 
 class NewsPage extends StatefulWidget {
@@ -25,9 +25,8 @@ class _NewsPageState extends State<NewsPage> {
     final url = ModalRoute.of(context)!.settings.arguments as String;
 
 
-    fetchOneNews(
+    parser.fetchOneNews(
       url,
-      'https://t130631.spo.obrazovanie33.ru',
     ).then((value) {
       setState(() {
         news = value;

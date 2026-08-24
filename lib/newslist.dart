@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:vtek/parser.dart';
 
+import 'UI.dart';
 import 'menu.dart';
 
 class NewsList extends StatefulWidget {
@@ -16,7 +16,7 @@ class _NewsListState extends State<NewsList> {
   List<Map<String, String>> news = [];
   @override
   void initState() {
-    fetchNewsList('https://t130631.spo.obrazovanie33.ru').then((value) => setState(() {
+    parser.fetchNewsList().then((value) => setState(() {
       news = value;
     }));
     super.initState();
