@@ -4,7 +4,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'UI.dart';
+import 'ui.dart';
 import 'menu.dart';
 
 class NewsPage extends StatefulWidget {
@@ -98,7 +98,7 @@ class _NewsPageState extends State<NewsPage> {
     return result;
   }
 
-  Future<void> showPhoto(index) async {
+  Future<void> showPhoto(int index) async {
     List<String> images = List<String>.from(news['img_urls']);
     showDialog(context: context,
         builder: (context){

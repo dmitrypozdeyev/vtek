@@ -7,7 +7,7 @@ class Parser{
   Parser(this.siteUrl);
 
   Future<List<Map<String, String>>> fetchNewsList() async {
-    final response = await http.get(Uri.parse(siteUrl + '/news/'));
+    final response = await http.get(Uri.parse('$siteUrl/news/'));
     final document = parser.parse(response.body);
     final elements = document.querySelectorAll('div.events-card');
     List<Map<String, String>> news = [];
@@ -32,8 +32,8 @@ class Parser{
     news['title'] = document.querySelector('h1')?.text ?? '';
     final imgDivs = document.querySelectorAll('div.newsdetail-slide');
     for (Element imgDiv in imgDivs) {
-      String img_url = siteUrl + imgDiv.querySelector('img')!.attributes['src']!;
-      news['img_urls'].add(img_url);
+      String imgUrl = siteUrl + imgDiv.querySelector('img')!.attributes['src']!;
+      news['img_urls'].add(imgUrl);
     }
     var newsElement = document.querySelector('section.newsdetail-section');
     var imagesToRemove = newsElement?.querySelector('div.newsdetail-block');
@@ -58,7 +58,6 @@ class Parser{
       if (!(link.attributes['href']!.startsWith('http'))) link.attributes['href'] = siteUrl + link.attributes['href']!;
     }
     final content = material?.innerHtml;
-    print(content);
     return content ?? '';
   }
 

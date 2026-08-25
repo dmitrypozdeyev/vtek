@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show Brightness, BuildContext, ColorScheme, Colors, MaterialApp, StatelessWidget, ThemeData, Widget;
 import 'package:vtek/parser.dart';
 import 'package:vtek/raspis.dart';
 
