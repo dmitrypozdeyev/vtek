@@ -48,7 +48,7 @@ class _NewsListState extends State<NewsList> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
                 side: BorderSide(
-                  color: Colors.black54,
+                  color: Theme.of(context).colorScheme.outline,
                   width: 2,
                 ),
               ),
