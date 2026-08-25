@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "892920630903",
+    "project_id": "vtek-1ed7e",
+    "storage_bucket": "vtek-1ed7e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892920630903:android:2ccfe58d573643a7330072",
+        "android_client_info": {
+          "package_name": "com.abbafan.vtek"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5r4pR-qNCVwsZQW1IFxsd7Vg7nVW8r3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

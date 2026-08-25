@@ -103,7 +103,7 @@ class _NewsPageState extends State<NewsPage> {
     showDialog(context: context,
         builder: (context){
       return Dialog(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         insetPadding: EdgeInsets.zero,
         child: PhotoViewGallery.builder(
           itemCount: images.length,

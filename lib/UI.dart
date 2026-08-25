@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vtek/parser.dart';
+import 'package:vtek/raspis.dart';
 
+import 'main.dart';
 import 'simplepage.dart';
 import 'newslist.dart';
 import 'newspage.dart';
@@ -11,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
@@ -31,6 +34,7 @@ class MyApp extends StatelessWidget {
                                           pageTitle: 'Как поступить',),
         '/contacts': (context) => SimplePage(parserdata: parser.fetchContacts('https://t130631.spo.obrazovanie33.ru/'),
                                           pageTitle: 'Контакты',),
+        '/rasp': (context) => Rasps(),
       },
       title: 'VTEK',
     );

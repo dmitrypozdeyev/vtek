@@ -8,7 +8,11 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'menu.dart';
 
 class Rasps  extends StatefulWidget{
-  const Rasps({super.key});
+  final int initialIndex;
+  const Rasps({
+    super.key,
+    this.initialIndex = 0,
+  });
 
   @override
   State<Rasps> createState() => _RaspsState();
@@ -37,6 +41,9 @@ class _RaspsState extends State<Rasps>{
     if (imgFiles.isNotEmpty) {
       result = PhotoViewGallery.builder(
         itemCount: imgFiles.length,
+        pageController: PageController(
+          initialPage: widget.initialIndex,
+        ),
         builder: (context, i) {
           return PhotoViewGalleryPageOptions(
               imageProvider: CachedNetworkImageProvider(imgFiles[i]),
@@ -45,7 +52,7 @@ class _RaspsState extends State<Rasps>{
               )
           );
         },
-        backgroundDecoration: const BoxDecoration(color: Colors.black),
+        backgroundDecoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
       );
 
     }

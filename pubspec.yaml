@@ -37,6 +37,9 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
   photo_view: ^0.15.0
   cached_network_image: ^3.4.1
+  firebase_core: ^4.14.0
+  firebase_messaging: ^16.6.0
+  flutter_local_notifications: ^22.3.0
 
 flutter_icons:
   android: true

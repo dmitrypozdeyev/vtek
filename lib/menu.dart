@@ -56,6 +56,14 @@ class MainDrawer extends StatelessWidget {
               Navigator.pushNamed(context, '/contacts');
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.calendar_month_rounded),
+            title: const Text('Расписание'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/rasp');
+            },
+          ),
         ],
       ),
     );
